@@ -110,16 +110,15 @@ namespace AlpataApi.Controllers
                 return Unauthorized(); // Kullanıcı bulunamadı
             }
 
-            // Şifreyi kontrol et
+        
             if (user.Password == login.Password)
             {
-                // Başarılı giriş
-                // Token oluşturmadan kullanıcıyı giriş yapmış kabul edebilirsiniz
+
                 return Ok(new { Message = "Giriş başarılı." });
             }
             else
             {
-                return Unauthorized(); // Şifre yanlış
+                return Unauthorized(); 
             }
         }
 
