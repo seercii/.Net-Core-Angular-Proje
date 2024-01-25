@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="register-container mt-5">
+          <h2 class="text-center mb-4">Create Meet</h2>
+          <form (ngSubmit)="create()">
+            <div class="mb-3">
+              <label for="meetName" class="form-label">meetName:</label>
+              <input type="text" id="meetName" class="form-control" [(ngModel)]="meetModel.meetName" name="meetName" required>
+            </div>
+  
+            <div class="mb-3">
+              <label for="description" class="form-label">description:</label>
+              <input type="text" id="description" class="form-control" [(ngModel)]="meetModel.description" name="description" required>
+            </div>
+  
+            <div class="mb-3">
+              <label for="startDate" class="form-label">startDate:</label>
+              <input type="date" id="startDate" class="form-control" [(ngModel)]="meetModel.startDate" name="startDate" required>
+            </div>
+  
+            <div class="mb-3">
+              <label for="finishDate" class="form-label">finishDate:</label>
+              <input type="date" id="finishDate" class="form-control" [(ngModel)]="meetModel.finishDate" name="finishDate" required>
+            </div>
+  
+            <div class="mb-3">
+              <label for="fileUpload" class="form-label">fileUpload:</label>
+              <input type="text" id="fileUpload" class="form-control" [(ngModel)]="meetModel.fileUpload" name="fileUpload" required>
+            </div>
+  
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  

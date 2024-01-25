@@ -1,1 +1,80 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%;}
+body {
+
+    margin: 0;
+
+    padding: 0;
+
+    font-family: "Roboto",sans-serif;
+   
+
+  }
+
+  .divContent{
+    min-height: 300px;
+    border-style: solid;
+    border-color: lightgray;
+    border-width: 1px;
+    margin: 1px 0px 1px 0px;
+    border-radius:1%;
+    box-shadow: 12px 12px 25px 12px lightgray;}
+
+  
+  /* .divContent table{
+    
+  } */
+
+  .aliceBlueDiv{
+    border-style: solid;
+    border-color: aliceblue;
+    background-color: aliceblue;
+    border-radius: 8px;
+    border-width: 8px;
+    margin-bottom: 2px; 
+  }
+
+  .menuPointer {
+    height: 1px; background-color: none;
+    box-shadow: 10px 10px 25px lightgray;}
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%;}
+body {
+
+    margin: 0;
+
+    padding: 0;
+
+    font-family: "Roboto",sans-serif;
+   
+
+  }
+
+  .divContent{
+    min-height: 300px;
+    border-style: solid;
+    border-color: lightgray;
+    border-width: 1px;
+    margin: 1px 0px 1px 0px;
+    border-radius:1%;
+    box-shadow: 12px 12px 25px 12px lightgray;}
+
+  
+  /* .divContent table{
+    
+  } */
+
+  .aliceBlueDiv{
+    border-style: solid;
+    border-color: aliceblue;
+    background-color: aliceblue;
+    border-radius: 8px;
+    border-width: 8px;
+    margin-bottom: 2px; 
+  }
+
+  .menuPointer {
+    height: 1px; background-color: none;
+    box-shadow: 10px 10px 25px lightgray;}

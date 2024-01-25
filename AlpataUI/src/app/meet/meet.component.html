@@ -1,0 +1,24 @@
+
+<table class="table table-hover align-middle">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">meetName</th>
+        <th scope="col">startDate</th>
+        <th scope="col">finishDate</th>
+        <th scope="col">description</th>
+        <th scope="col">fileUpload</th>
+        <th scope="col" style="text-align: right">&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody style="font-size: smaller" *ngFor="let meet of meets">
+      <tr>
+        <td>{{ meet.meetName }}</td>
+        <td>{{ meet.startDate }}</td>
+        <td>{{ meet.finishDate }}</td>
+        <td>{{ meet.description }}</td>
+        <td>{{ meet.fileUpload }}</td>
+      </tr>
+    </tbody>
+  </table>  
+  
+  

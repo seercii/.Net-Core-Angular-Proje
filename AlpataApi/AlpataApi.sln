@@ -5,6 +5,10 @@ VisualStudioVersion = 17.8.34408.163
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlpataApi", "AlpataApi\AlpataApi.csproj", "{397B9CA6-12EC-4B95-B912-35790F23219D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlpataApi.Data", "AlpataApi.Data\AlpataApi.Data.csproj", "{9A1C0908-B61E-4889-BF90-EE9E22A604DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlpataApi.Core", "AlpataApi.Core\AlpataApi.Core.csproj", "{B6B824C9-377A-4AE4-AF37-1914A70DE08F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{397B9CA6-12EC-4B95-B912-35790F23219D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{397B9CA6-12EC-4B95-B912-35790F23219D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{397B9CA6-12EC-4B95-B912-35790F23219D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A1C0908-B61E-4889-BF90-EE9E22A604DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A1C0908-B61E-4889-BF90-EE9E22A604DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A1C0908-B61E-4889-BF90-EE9E22A604DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A1C0908-B61E-4889-BF90-EE9E22A604DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6B824C9-377A-4AE4-AF37-1914A70DE08F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6B824C9-377A-4AE4-AF37-1914A70DE08F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6B824C9-377A-4AE4-AF37-1914A70DE08F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6B824C9-377A-4AE4-AF37-1914A70DE08F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
