@@ -2,6 +2,7 @@
 using AlpataApi.Core.Models;
 using AlpataApi.Data.Context;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -71,8 +72,10 @@ namespace AlpataApi.Controllers
                 SurName = register.SurName,
                 PhotoImage= register.PhotoImage,
             };
-
-            _context.Registers.Add(user);
+            var passwordHasher = new PasswordHasher<Register>(); //asp.net core identity frameworkü sayesinde passwordu passwordHasher sınıfının hashpassword metodu ile karma hale getirdik yani hash yaptık
+            user.Password = passwordHasher.HashPassword(user, register.Password); //user şifreyi şifrelenecek olan kullanıcıyı temsil ediyor 
+                                                                                  //register.passwordte şifrelencek olan şifreyi temsil ediyo. 
+            _context.Registers.Add(user);                                         
             await _context.SaveChangesAsync();
             return Ok(new { Message = "Kullanıcı başarıyla eklendi." });
              
@@ -106,8 +109,12 @@ namespace AlpataApi.Controllers
             user.Email = register.Email;
             user.Phone = register.Phone;
             user.SurName = register.SurName;
-           
 
+            if (!string.IsNullOrWhiteSpace(register.Password))//register.Password değeri boş ve null değilse bu bloğa girer ve biz şifreyi girdikten sonra şifreyi karmaşıklaştırır
+            {
+                var passwordHasher = new PasswordHasher<Register>();
+                user.Password = passwordHasher.HashPassword(user, register.Password);
+            }
             await _context.SaveChangesAsync();
 
             return Ok(new { Message = "Kullanıcı başarıyla güncellendi." });
@@ -141,19 +148,17 @@ namespace AlpataApi.Controllers
                 return Unauthorized(); // Kullanıcı bulunamadı
             }
 
-        
-            if (user.Password == login.Password)
-            {
 
+            var passwordHasher = new PasswordHasher<Register>();
+            //ilk passwordhasher örneği olusturuyoruz daha sonra verifyhashedpassword ile giriş yapılan şifreyi database'deki şifreyle aynı mı değilmi ona bakıyoruz
+            if (passwordHasher.VerifyHashedPassword(user, user.Password, login.Password) == PasswordVerificationResult.Success)
+            {//user zaten giriş yapmaya çalısan kullanıcı user.password databasedeki karmaşık şifre login.passwordda girilen şifre eşleşiyosa ok eşleşmiyosa unauthorized
                 return Ok(new { Message = "Giriş başarılı." });
             }
             else
             {
-                return Unauthorized(); 
+                return Unauthorized();
             }
         }
-
-
-
     }
 }

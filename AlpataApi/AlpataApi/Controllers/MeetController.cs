@@ -96,8 +96,8 @@ namespace AlpataApi.Controllers
 
             meet.MeetName = meetModel.MeetName;
             meet.Description = meetModel.Description;
-            meet.StartDate = meetModel.StartDate.Date;
-            meet.FinishDate = meetModel.FinishDate.Date;
+            meet.StartDate = meetModel.StartDate;
+            meet.FinishDate = meetModel.FinishDate;
 
             await _context.SaveChangesAsync();
 
