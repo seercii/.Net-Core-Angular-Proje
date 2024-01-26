@@ -20,7 +20,7 @@ const routes: Routes = [
   {path:'update-meet/:id',component:UpdateMeetComponent}
 
 
-
+//burda route işlemlerini yaptık
 
 ];
 

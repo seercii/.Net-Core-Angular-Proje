@@ -1,0 +1,123 @@
+Nesne yönelimli programlama 4 temel prensip kapsamında incelenir.
+
+Soyutlama (Abstraction)
+Kapsülleme (Encapsulation)
+Miras Alma (Inheritance)
+Çok Biçimlilik (Polymorphism)
+
+
+Soyutlama (Abstraction): Bir şeyin özellikleri sınıf yani mesela arabanın özelliklerini içeren bir sınıf.
+
+
+Kapsülleme:Kapsülleme ile hangi özelliklerin dışarıya sunulup sunulmayacağını belirleriz.
+Örneğin aracın kapı sayısı bizi ilgilendirmiyorsa bunu kapalı (private) yapıp gizleriz. Ancak markası modeli gibi bilgiler bizi ilgilendirdiği için bunlar açık bırakılır.  Bilgi saklama erişim belirteçleri (public, private, protected) ile gerçekleştirilir.
+
+public : herkesin kullanabileceği özellik ve davranışlardır
+private : sadece kendi sınıfında kullanılabilen özellik ve davranışlardır
+protected : sınıf içinde miras alınan alt sınıflar tarafından kullanılır.
+
+
+
+Kalıtım: Sınıflar birbirinden türeyebilir. Alt sınıf üst sınıfın özelliklerini alabilir. 
+
+
+Çok Biçimlilik Polymorphism: Alt sınıflar üst sınıfın gösterdiği davranışları göstermek zorunda değildir. Alt sınıfların farklı davranışları göstermesine Çok biçimlilik denilmektedir.
+Farklı nesnelerin, aynı mesaja (olaya ya da uyarıma) farklı şekillerde cevap verebilme yeteneğidir.
+
+
+
+
+Tasarım desenleri 3 ana başlık altında incelenir.
+Creational Patterns (Yaratımsal Kalıplar)
+Structural Patterns (Yapısal Kalıplar)
+Behavioral Patterns (Davranışsal Kalıplar)
+
+
+
+
+
+
+MVC Çalışma Mantığı
+Mvc mimarisi üç parçadan oluşur. Bunlar Model, View ve Controller olarak parçalara ayrılır. 
+
+MVC mimarisi şu şekilde çalışır: Tarayıcıdan View sayfasına istek yapıldığında, View katmanı Controller’a gider. Controller isteği gerçekleştirmek üzere Model katmanına gider. Daha sonra Model'den alınan veriler, View’a gönderilerek istenilen verilerin görüntülenmesi sağlanır. En basit anlamda MVC, bir uygulamayı üç alana ayırma çabasıdır. 
+
+
+
+Model: MVC mimarisi içinde verilerin tutulduğu, veri tabanına erişimin sağlandığı, tüm data işlemlerinin gerçekleştiği yer model katmanıdır. 
+
+View: View, Model katmanının görselleştirilmiş, kullanıcının uygulamayı gördüğü halidir. Kullanıcının görebileceği her şey View katmanındadır.  Metin kutuları, menüler gibi tüm UI bileşenlerini içerir. Html, Css, Javascript gibi arayüz teknolojilerinden yararlanır. 
+
+Controller: Model ve View katmanları arasındaki işlemleri gerçekleştirir. Yani View katmanından aldığı veri tabanı işlemleri ve hesaplamalar gibi tüm işlemleri Model katmanına taşır. Bir nevi arada köprü görevi görür. 
+
+
+
+Entity Framework Nedir?
+Entity Framework Microsoft tarafında geliştirilen ORM aracıdır.  ORM veya Object to Relational Mapping temel olarak veritabanında yer alan tablo ve alanları nesne olarak kullanmamıza imkan veren bir yazılım mimarisidir. Böylece yazılım geliştirici veritabanı ve SQL komutlarına ihtiyaç duymadan yazılım geliştirebilir.
+
+Entity Framework ile 3 farklı yöntem ile proje geliştirilebilir. Bu yöntemler;
+-Model First
+-Database First
+-Code First
+
+
+
+ASP.NET, HTML, CSS ve JavaScript kullanarak harika web siteleri ve web uygulamaları oluşturmaya yönelik bir web çerçevesidir.
+
+
+
+
+Net Core’un Temel Özellikleri
+
+Açık kaynak kodlu esnek bir geliştirme platformudur.
+.Net Core çapraz geliştirmeye verdiği olanak sayesinde Windows, macOS ve Linux’u destekler.
+
+
+
+
+ bir API, iki uygulamanın birbirleriyle dolaylı olarak etkileşimde bulunabileceği bir yerdir. Yani, biz bir istekte bulunuruz ve API bize bir yanıt gönderir.
+
+
+Web API, web için bir arayüzdür HTTP protokolü kullanılır.
+Http Get, Post, Put ve Delete metodlarıyla çalışabildiğinden CRUD işlemelrini destekler,
+HTTP, bir istemci (kullanıcı) istekleri gönderdiğinde ve bir sunucu isteği işleyip bir yanıt (yanıt) döndürdüğünde kullanılan bir istemci-sunucu protokolüdür.
+
+
+REST, web servis oluşturmak için kullanılan web servis yöntemlerinden birisidir.
+CRUD (Create, Read, Update, Delete)  GET, POST, DELETE, PUT ve PATCH gibi HTTP fiillerini kullanır.
+REST, HTTP protokolüne ait HTTP yöntemlerini ve HTTP durum kodlarını kullanarak gelen isteklere XML, JSON, CSV vb. olarak cevap verir.
+200 OK 404 BAD REQUEST 401 UNAUTHORIZED 403 FORBIDDEN
+
+
+SOAP  nesne erişim protokolüdür. HTTP üzerinden web servislerine erişmek için XML tabanlı bir protokoldür.
+Web servisler, uygulamalar arasında XML verisinin alışverişi için SOAP kullanır. SOAP, hem durum bilgisi olan(stateful) hem de durum bilgisi olmayan (stateless) işlemleri destekler.
+
+
+Genellikle angular uygulamasında componentlerin görevi sayfa alt yapılarını oluşturmak için kullanılır.Yani, biraz daha açıklayacak olursam kullanıcya içerik sunduğumuz, kullanıcı aksiyonlar yapabildiği sayfalardır.
+
+
+ T-SQL ile veri ve sorgulara erişebilir, güncelleyebilir ve ilişkisel veri tabanı sistemi yönetilebilir. T-SQL komutları kullanım amaçlarına göre üç genel kategoriye ayrılır.
+
+
+
+SQL veri işleme dili veri girmek, değiştirmek, silmek ve verileri almak için kullanılan DML komutlarının tümüdür. En sık kullanılan DML komutları ve kullanım amaçları aşağıdaki gibidir:
+SELECT:Veri seçmek
+DELETE:Veri silmek
+UPDATE:Veri güncellemek
+INSERT:Veri girmek
+ 
+
+
+SQL Veri tanımlama dili verilerin tutulduğu nesneler olan tabloların yaratılmasını, silinmesini ve bazı temel özelliklerinin düzenlenmesini sağlar. En sık kullanılan bazı DDL komutları ve kullanım amaçları aşağıdaki gibidir:
+CREATE TABLE:Yeni bir tablo yaratmak
+ALTER TABLE:Tabloda değişiklik yapmak
+DROP TABLE:Tabloyu silmek
+CREATE INDEX:Tabloda dizin oluşturmak
+
+
+
+SQL veri kontrol dili bir veri tabanı kulalnıcısı veya rolü ile ilgili izinlerin düzenlenmesini sağlar. DCL komuları ve fonksiyonları şöyledir:
+GRANT:Kullanıcıya yetki verir.
+DENY:Kullanıcı, grup veya rolü herhangi bir eylem için eneller.
+REVOKE:Daha önce atanmış olan yetki veya engeli kaldırır.
+

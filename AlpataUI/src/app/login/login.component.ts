@@ -11,8 +11,8 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   loginModel: LoginModel = { Email: '', Password: '' };
 
-  constructor(private accountService: AccountService,    private router: Router,
-    ) {}
+  constructor(private accountService: AccountService, private router: Router,
+  ) { }
 
   login() {
     this.accountService.login(this.loginModel).subscribe(

@@ -10,9 +10,10 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AddMeetComponent } from './add-meet/add-meet.component';
+import { DatePipe } from '@angular/common';  // Import DatePipe
 
 
-
+//burada neleri import declarations edeceğimizi yazdık
 
 @NgModule({
   declarations: [
@@ -29,9 +30,10 @@ import { AddMeetComponent } from './add-meet/add-meet.component';
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
+    
 
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

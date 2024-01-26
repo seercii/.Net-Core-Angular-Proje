@@ -17,7 +17,7 @@ export const routes: Routes = [
     {path:'addmeet',component:AddMeetComponent},
 
 
-
+//burda yolları belirttik
 
 
   

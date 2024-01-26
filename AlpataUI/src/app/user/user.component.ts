@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class UserComponent implements OnInit {
   users: RegisterModel[] = [];
-  imageUrlPrefix: string = 'https://localhost:7190/images/'; // Resimlerin bulunduğu dizin
+  imageUrlPrefix: string = 'https://localhost:7190/images/'; // Resimlerin bulunduğu yer
 
   constructor(private accountService: AccountService) { }
 
@@ -28,7 +28,7 @@ export class UserComponent implements OnInit {
         this.users = data;
       },
       (error) => {
-        console.error('Error loading users: ', error);
+        console.error('kullanıcı yüklenirken hata: ', error);
       }
     );
   }
@@ -37,15 +37,15 @@ export class UserComponent implements OnInit {
     if (id !== undefined) {
       this.accountService.deleteUser(id).subscribe(
         () => {
-          console.log('User deleted successfully');
+          console.log('kullanıcı başarıyla silindi');
           this.loadUsers();
         },
         (error) => {
-          console.error('Error deleting user: ', error);
+          console.error('kullanıcı silinirken hata: ', error);
         }
       );
     } else {
-      console.error('Invalid userId');
+      console.error('geçersiz kullanıcı');
     }
   }
   getImageUrl(imagePath: string | undefined): string {
@@ -53,10 +53,10 @@ export class UserComponent implements OnInit {
       // Eğer imagePath tanımlı ise, gerçek resim URL'sini döndür
       return this.imageUrlPrefix + imagePath;
     } else {
-      // Eğer imagePath tanımlı değilse, hiçbir şey döndür (boş string)
+      // Eğer imagePath tanımlı değilse, (boş string)
       return '';
     }
   }
 
- 
+
 }

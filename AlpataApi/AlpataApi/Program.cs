@@ -8,7 +8,7 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+//db contexti ekledik
 builder.Services.AddScoped<AlpataApiContext>();
 
 
@@ -29,6 +29,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+//cors u ekledik farklý originde olmasýn diye
 app.UseCors(options =>
 {
     options.AllowAnyOrigin();
@@ -43,6 +44,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+//resim için staticfiles ekledik
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(

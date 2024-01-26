@@ -1,41 +1,30 @@
-
 <table class="table table-hover align-middle">
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col">meetName</th>
-        <th scope="col">startDate</th>
-        <th scope="col">finishDate</th>
-        <th scope="col">description</th>
-        <th scope="col">fileUpload</th>
-        <th scope="col" style="text-align: right">&nbsp;</th>
-      </tr>
-    </thead>
-    <tbody style="font-size: smaller" *ngFor="let meet of meets">
-      <tr>
-        <td>{{ meet.meetName }}</td>
-       <td> {{ meet.startDate  | date: 'dd/MM/yyyy HH:mm'   }} </td> 
-    
-        <td>{{ meet.finishDate  | date: 'dd/MM/yyyy HH:mm'  }}</td> 
-    
-        <td>{{ meet.description }}</td>
-        <td>{{ meet.fileUpload }}</td>
-        <td style="white-space: nowrap">
-          <a
-            style="font-size: 0.7rem"
-            routerLink="/update-meet/{{meet.id}}"
-            class="btn btn-sm btn-success me-1"
-            ><i class="bi bi-arrow-clockwise">&nbsp;</i>Güncelle</a
-          >
-          <button
-          (click)="deleteMeet(meet.id)"
-            class="btn btn-danger btn-sm"
-            style="font-size: 0.7rem"
-          >
-            <i class="bi bi-x-circle"></i>&nbsp;Sil
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>  
-  
-  
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">meetName</th>
+      <th scope="col">startDate</th>
+      <th scope="col">finishDate</th>
+      <th scope="col">description</th>
+      <th scope="col">fileUpload</th>
+      <th scope="col" style="text-align: right">&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody style="font-size: smaller" *ngFor="let meet of meets">
+    <tr>
+      <td>{{ meet.meetName }}</td>
+      <td> {{ meet.startDate | date: 'dd/MM/yyyy HH:mm' }} </td>
+
+      <td>{{ meet.finishDate | date: 'dd/MM/yyyy HH:mm' }}</td>
+
+      <td>{{ meet.description }}</td>
+      <td>{{ meet.fileUpload }}</td>
+      <td style="white-space: nowrap">
+        <a style="font-size: 0.7rem" routerLink="/update-meet/{{meet.id}}" class="btn btn-sm btn-success me-1"><i
+            class="bi bi-arrow-clockwise">&nbsp;</i>Güncelle</a>
+        <button (click)="deleteMeet(meet.id)" class="btn btn-danger btn-sm" style="font-size: 0.7rem">
+          <i class="bi bi-x-circle"></i>&nbsp;Sil
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

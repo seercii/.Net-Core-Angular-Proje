@@ -1,24 +1,22 @@
-<!-- app.component.html -->
-
 <div class="container mt-4">
-    <header class="mb-4">
-      <h1>My App</h1>
-    </header>
-  
-    <nav class="mb-4">
-      <ul class="nav">
-        <li class="nav-item"><button class="nav-link" routerLink="">Home</button></li>
-        <li class="nav-item"><button class="nav-link" routerLink="/login">Login</button></li>
-        <li class="nav-item"><button class="nav-link" routerLink="/register">Register</button></li>
-        <li class="nav-item"><button class="nav-link" routerLink="/user">User</button></li>
-        <li class="nav-item"><button class="nav-link" routerLink="/meet">Meet</button></li>
-        <li class="nav-item"><button class="nav-link" routerLink="/addmeet">Create Meet</button></li>
-      </ul>
-    </nav>
-  
-    <section class="main-content">
-      <router-outlet></router-outlet>
-    </section>
+  <header class="mb-4">
+    <h1>Alpata Project</h1>
+  </header>
 
-  </div>
-  
+  <nav class="mb-4">
+    <ul class="nav">
+      <li class="nav-item"><button class="nav-link" routerLink="">Home</button></li>
+      <li class="nav-item"><button class="nav-link" routerLink="/login">Login</button></li>
+      <li class="nav-item"><button class="nav-link" routerLink="/register">Register</button></li>
+      <li class="nav-item"><button class="nav-link" routerLink="/user">User</button></li>
+      <li class="nav-item"><button class="nav-link" routerLink="/meet">Meet</button></li>
+      <li class="nav-item"><button class="nav-link" routerLink="/addmeet">Create Meet</button></li>
+    </ul>
+  </nav>
+  <!--router-outlet yaptık ve ana sayfada her zaman bu linkler gelecek  -->
+
+  <section class="main-content">
+    <router-outlet></router-outlet>
+  </section>
+
+</div>

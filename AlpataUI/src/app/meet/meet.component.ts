@@ -12,20 +12,20 @@ import { MeetModel } from '../models/meet-model';
   standalone: true,
   imports: [RouterLink, NgFor, NgIf, FormsModule, CommonModule]
 })
-export class MeetComponent  implements OnInit{
-  meets:MeetModel[]=[];
+export class MeetComponent implements OnInit {
+  meets: MeetModel[] = [];
   constructor(private accountService: AccountService) { }
 
   ngOnInit(): void {
     this.loadMeets();
-    }
+  }
   loadMeets(): void {
     this.accountService.getMeet().subscribe(
       (data: MeetModel[]) => {
         this.meets = data;
       },
       (error) => {
-        console.error('Error loading meets: ', error);
+        console.error('meets hatalı yüklendi: ', error);
       }
     );
   }
@@ -33,15 +33,15 @@ export class MeetComponent  implements OnInit{
     if (id !== undefined) {
       this.accountService.deleteMeet(id).subscribe(
         () => {
-          console.log('User deleted successfully');
+          console.log('meet başarıyla silindi');
           this.loadMeets();
         },
         (error) => {
-          console.error('Error deleting user: ', error);
+          console.error('meets silinemedi: ', error);
         }
       );
     } else {
-      console.error('Invalid userId');
+      console.error('yanlış meets');
     }
   }
 }

@@ -15,7 +15,7 @@ namespace AlpataApi.Core.Models
         public string Phone { get; set; }
         public string Password { get; set; }
         public string? PhotoImage { get; set; }
-        public IFormFile PhotoImageFile { get; set; }
+        public IFormFile? PhotoImageFile { get; set; }
 
     }
 }

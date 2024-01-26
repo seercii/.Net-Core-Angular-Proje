@@ -44,20 +44,22 @@ namespace AlpataApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Register>> CreateUser([FromForm]RegisterModel register)
+        public async Task<ActionResult<Register>> CreateUser([FromForm]RegisterModel register) //fromform kullanmamızınsebebi 415 desteklenmeyen medya türü hatası dönmesi
         {
-            if (register.PhotoImageFile != null)
-            {
-                string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "images");
-                string uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(register.PhotoImageFile.FileName);
-                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
+            //resim ekleme işlemi 
+            if (register.PhotoImageFile != null) //yüklediği fotoğraf null mu değil mi
+            {
+                string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "images"); //fotoğrafı nereye yükleyeceğimizi seçeriz
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(register.PhotoImageFile.FileName); //burada yüklenen fotoğrafa karışık isim verir
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);//burda tam yolu belirliyoruz fotografın klasor ile foto 
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create)) //buda dosya yoksa olusturuyo 
                 {
-                    await register.PhotoImageFile.CopyToAsync(fileStream);
+                    await register.PhotoImageFile.CopyToAsync(fileStream); //fotoyu fileStream üzerine asenkron olarak kopyalar
                 }
 
-                register.PhotoImage = uniqueFileName;
+                register.PhotoImage = uniqueFileName; //veritabanında adı saklar
             }
 
             var user = new Register
@@ -104,7 +106,6 @@ namespace AlpataApi.Controllers
             user.Email = register.Email;
             user.Phone = register.Phone;
             user.SurName = register.SurName;
-            user.PhotoImage = register.PhotoImage;
            
 
             await _context.SaveChangesAsync();

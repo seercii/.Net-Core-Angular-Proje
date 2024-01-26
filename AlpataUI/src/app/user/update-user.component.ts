@@ -10,18 +10,18 @@ import { CommonModule, NgClass, NgIf } from '@angular/common';
   templateUrl: './update-user.component.html',
   styleUrls: ['./user.component.css'],
   standalone: true,
-  imports: [NgIf, ReactiveFormsModule, NgClass, RouterLink,CommonModule,FormsModule]
+  imports: [NgIf, ReactiveFormsModule, NgClass, RouterLink, CommonModule, FormsModule]
 })
 export class UpdateUserComponent implements OnInit {
-  user: RegisterModel = { // Announcement nesnesini burada başlangıç değeri olarak tanımla
+  user: RegisterModel = { // register modelini burada başlangıç değeri olarak tanımladık
     id: 0,
     name: '',
     surName: '',
     email: '',
     phone: '',
-    password:'',
-    photoImage:''
-};
+    password: '',
+    photoImage: ''
+  };
   userId!: number;
   selectedFile: File | null = null;
   selectedFilePreview: string | null = null; // Resmin önizlemesinin veri URL'si
@@ -29,46 +29,48 @@ export class UpdateUserComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private accountService: AccountService,
     private router: Router,
-    ) {}
+  ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       const id = params['id'];
       this.loadUserDetails(id);
-  });
+    });
   }
 
-  loadUserDetails(id:number): void {
+  loadUserDetails(id: number): void {
     this.accountService.getUserById(id).subscribe(
       (users) => {
         this.user = users;
       },
       (error) => {
-        console.error('Error loading user details: ', error);
+        console.error('hatalı kullanıcı detaylar: ', error);
       }
     );
   }
 
   onSubmit() {
     if (this.user && this.user.id) {
-
       const formData = new FormData();
       formData.append('Name', this.user.name || '');
       formData.append('Email', this.user.email || '');
       formData.append('Password', this.user.password || '');
       formData.append('Phone', this.user.phone || '');
       formData.append('SurName', this.user.surName || '');
-      formData.append('PhotoImageFile', this.selectedFile || '');
+
+      formData.append('photoImageFile', this.selectedFile || '');
+
       this.accountService.updateUser(this.user.id, formData).subscribe(() => {
-        this.router.navigate(['/user']); 
+        this.router.navigate(['/user']);
       });
     } else {
       console.error('Kullanıcı bilgileri eksik. Güncelleme yapılamıyor.');
     }
   }
+
   onFileChange(event: any) {
     this.selectedFile = event.target.files[0];
-  
+
     if (this.selectedFile) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
@@ -82,7 +84,7 @@ export class UpdateUserComponent implements OnInit {
       // Eğer imagePath tanımlı ise, gerçek resim URL'sini döndür
       return this.imageUrlPrefix + imagePath;
     } else {
-      // Eğer imagePath tanımlı değilse, hiçbir şey döndür (boş string)
+      // Eğer imagePath tanımlı değilse,  (boş string)
       return '';
     }
   }
