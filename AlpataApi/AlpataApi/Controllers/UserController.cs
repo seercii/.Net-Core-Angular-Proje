@@ -44,26 +44,55 @@ namespace AlpataApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Register>> CreateUser(RegisterModel register)
+        public async Task<ActionResult<Register>> CreateUser([FromForm]RegisterModel register)
         {
+            if (register.PhotoImageFile != null)
+            {
+                string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "images");
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(register.PhotoImageFile.FileName);
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
-            var user = new Register { Name = register.Name,
-            Password = register.Password,
-            Email = register.Email,
-            Phone = register.Phone,
-            SurName = register.SurName,
-            PhotoImage=register.PhotoImage,
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await register.PhotoImageFile.CopyToAsync(fileStream);
+                }
+
+                register.PhotoImage = uniqueFileName;
+            }
+
+            var user = new Register
+            {
+                Name = register.Name,
+                Password = register.Password,
+                Email = register.Email,
+                Phone = register.Phone,
+                SurName = register.SurName,
+                PhotoImage= register.PhotoImage,
             };
+
             _context.Registers.Add(user);
             await _context.SaveChangesAsync();
             return Ok(new { Message = "Kullanıcı başarıyla eklendi." });
-
+             
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(int id, RegisterModel register)
+        public async Task<IActionResult> UpdateUser(int id, [FromForm] RegisterModel register)
         {
             var user = await _context.Registers.FindAsync(id);
+            if (register.PhotoImageFile != null)
+            {
+                string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "images");
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(register.PhotoImageFile.FileName);
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await register.PhotoImageFile.CopyToAsync(fileStream);
+                }
+
+                register.PhotoImage = uniqueFileName;
+            }
 
             if (user == null)
             {
@@ -76,6 +105,7 @@ namespace AlpataApi.Controllers
             user.Phone = register.Phone;
             user.SurName = register.SurName;
             user.PhotoImage = register.PhotoImage;
+           
 
             await _context.SaveChangesAsync();
 

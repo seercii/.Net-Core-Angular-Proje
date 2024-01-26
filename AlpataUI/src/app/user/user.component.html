@@ -1,11 +1,11 @@
-
 <table class="table table-hover align-middle">
   <thead class="thead-dark">
     <tr>
       <th scope="col">Name</th>
       <th scope="col">Surname</th>
       <th scope="col">Email</th>
-      <th scope="col" style="text-align: right">&nbsp;</th>
+      <th scope="col">Profil Fotoğrafı</th>
+      <th scope="col" style="text-align: right"></th>
     </tr>
   </thead>
   <tbody style="font-size: smaller" *ngFor="let user of users">
@@ -13,7 +13,29 @@
       <td>{{ user.name }}</td>
       <td>{{ user.surName }}</td>
       <td>{{ user.email }}</td>
+      <td>
+        <img
+          *ngIf="user.photoImage"
+          [src]="getImageUrl(user.photoImage)"
+          alt="Profile Image"
+          style="max-width: 50px; max-height: 50px;"
+        />
+      </td>
+      <td style="white-space: nowrap">
+        <a
+          style="font-size: 0.7rem"
+          routerLink="/update-user/{{user.id}}"
+          class="btn btn-sm btn-success me-1"
+          ><i class="bi bi-arrow-clockwise">&nbsp;</i>Güncelle</a
+        >
+        <button
+        (click)="deleteUser(user.id)"
+          class="btn btn-danger btn-sm"
+          style="font-size: 0.7rem"
+        >
+          <i class="bi bi-x-circle"></i>&nbsp;Sil
+        </button>
+      </td>
     </tr>
   </tbody>
-</table>  
-
+</table>

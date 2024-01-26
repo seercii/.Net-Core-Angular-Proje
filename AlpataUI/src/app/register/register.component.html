@@ -29,11 +29,12 @@
             <input type="password" id="password" class="form-control" [(ngModel)]="registerModel.password" name="password" required>
           </div>
 
-          <div class="mb-3">
-            <label for="photoImage" class="form-label">Photo URL:</label>
-            <input type="text" id="photoImage" class="form-control" [(ngModel)]="registerModel.photoImage" name="photoImage" required>
-          </div>
 
+          <div class="form-group">
+            <label for="imageFile">Profil Fotoğrafı</label>
+            <input type="file" class="form-control" id="imageFile" name="imageFile" accept="image/*" (change)="onFileChange($event)">
+            <img *ngIf="selectedFilePreview" [src]="selectedFilePreview" alt="Seçilen Resim" class="img-preview" [ngStyle]="{'max-width.px': 400, 'max-height.px': 400}">
+          </div>
           <div class="d-grid">
             <button type="submit" class="btn btn-primary">Register</button>
           </div>

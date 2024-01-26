@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AccountService } from '../services/account.service';
 import { LoginModel } from '../models/login-model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,16 +11,17 @@ import { LoginModel } from '../models/login-model';
 export class LoginComponent {
   loginModel: LoginModel = { Email: '', Password: '' };
 
-  constructor(private accountService: AccountService) {}
+  constructor(private accountService: AccountService,    private router: Router,
+    ) {}
 
   login() {
     this.accountService.login(this.loginModel).subscribe(
       (response) => {
-        // Başarılı giriş durumu
         console.log(response);
+        this.router.navigate(['/user']);
+
       },
       (error) => {
-        // Hata durumu
         console.error(error);
       }
     );

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../services/account.service';
-import { NgFor, NgIf } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { MeetModel } from '../models/meet-model';
 
 @Component({
@@ -8,7 +10,7 @@ import { MeetModel } from '../models/meet-model';
   templateUrl: './meet.component.html',
   styleUrls: ['./meet.component.css'],
   standalone: true,
-  imports: [NgFor, NgIf]
+  imports: [RouterLink, NgFor, NgIf, FormsModule, CommonModule]
 })
 export class MeetComponent  implements OnInit{
   meets:MeetModel[]=[];
@@ -26,5 +28,20 @@ export class MeetComponent  implements OnInit{
         console.error('Error loading meets: ', error);
       }
     );
+  }
+  deleteMeet(id: number | undefined): void {
+    if (id !== undefined) {
+      this.accountService.deleteMeet(id).subscribe(
+        () => {
+          console.log('User deleted successfully');
+          this.loadMeets();
+        },
+        (error) => {
+          console.error('Error deleting user: ', error);
+        }
+      );
+    } else {
+      console.error('Invalid userId');
+    }
   }
 }

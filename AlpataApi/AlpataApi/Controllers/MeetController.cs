@@ -40,13 +40,28 @@ namespace AlpataApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Meet>> Createmeet(MeetModel meetModel)
+        public async Task<ActionResult<Meet>> Createmeet([FromForm] MeetModel meetModel)
         {
+            if (meetModel.UploadFile != null)
+            {
+                string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "documentation");
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(meetModel.UploadFile.FileName);
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await meetModel.UploadFile.CopyToAsync(fileStream);
+                }
+
+                meetModel.FileUpload = uniqueFileName;
+            }
+
+
             var meet = new Meet
             {
                MeetName= meetModel.MeetName,
                Description= meetModel.Description,
-               StartDate=DateTime.Now,
+               StartDate=meetModel.StartDate,
                FinishDate= meetModel.FinishDate,
                FileUpload=meetModel.FileUpload
             };
@@ -56,9 +71,23 @@ namespace AlpataApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateMeet(int id, MeetModel meetModel)
+        public async Task<IActionResult> UpdateMeet(int id, [FromForm] MeetModel meetModel)
         {
             var meet = await _context.Meets.FindAsync(id);
+
+            if (meetModel.UploadFile != null)
+            {
+                string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "documentation");
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(meetModel.UploadFile.FileName);
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await meetModel.UploadFile.CopyToAsync(fileStream);
+                }
+
+                meet.FileUpload = uniqueFileName; // Corrected line
+            }
 
             if (meet == null)
             {
@@ -67,14 +96,14 @@ namespace AlpataApi.Controllers
 
             meet.MeetName = meetModel.MeetName;
             meet.Description = meetModel.Description;
-            meet.StartDate = meetModel.StartDate;
-            meet.FinishDate = meetModel.FinishDate;
-            meetModel.FileUpload = meetModel.FileUpload;
+            meet.StartDate = meetModel.StartDate.Date;
+            meet.FinishDate = meetModel.FinishDate.Date;
 
             await _context.SaveChangesAsync();
 
             return Ok(new { Message = "Toplantı başarıyla güncellendi." });
         }
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMeet(int id)

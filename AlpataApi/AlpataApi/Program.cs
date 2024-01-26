@@ -2,6 +2,7 @@ using AlpataApi.Core.Entities;
 using AlpataApi.Data.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -33,6 +34,7 @@ app.UseCors(options =>
     options.AllowAnyOrigin();
     options.AllowAnyMethod();
     options.AllowAnyHeader();
+
 });
 
 app.UseHttpsRedirection();
@@ -41,5 +43,10 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+           Path.Combine(builder.Environment.ContentRootPath, "images")),
+    RequestPath = "/images"
+});
 app.Run();

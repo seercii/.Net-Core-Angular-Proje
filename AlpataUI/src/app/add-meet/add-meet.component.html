@@ -24,11 +24,11 @@
               <input type="date" id="finishDate" class="form-control" [(ngModel)]="meetModel.finishDate" name="finishDate" required>
             </div>
   
-            <div class="mb-3">
-              <label for="fileUpload" class="form-label">fileUpload:</label>
-              <input type="text" id="fileUpload" class="form-control" [(ngModel)]="meetModel.fileUpload" name="fileUpload" required>
+            <div class="form-group">
+              <label for="fileUpload">Döküman Dosyası</label>
+              <input type="file" class="form-control" id="fileUpload" name="fileUpload" accept="documentation/*" (change)="onFileChange($event)">
+              <img *ngIf="selectedFilePreview" [src]="selectedFilePreview" alt="Seçilen Dosya" class="img-preview" [ngStyle]="{'max-width.px': 400, 'max-height.px': 400}">
             </div>
-  
             <div class="d-grid">
               <button type="submit" class="btn btn-primary">Register</button>
             </div>

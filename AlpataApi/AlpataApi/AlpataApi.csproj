@@ -26,4 +26,9 @@
     <ProjectReference Include="..\AlpataApi.Data\AlpataApi.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="images\" />
+    <Folder Include="documentation\" />
+  </ItemGroup>
+
 </Project>

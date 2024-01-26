@@ -1,0 +1,55 @@
+<div class="container d-flex align-items-start divContent" style="padding-top:15px">
+    <div class="tab-content col-10" id="v-pills-tabContent" style="margin-left: 10px; padding-right:8px">
+            <div class="container">
+                <form (ngSubmit)="onSubmit()">
+                    <div class="mb-3 col">
+                        <label for="name">name</label>
+                        <input type="text" class="form-control" id="name" [(ngModel)]="user.name" name="name"
+                            required>
+                    </div>
+                    <div class="mb-2 col">
+                        <label for="surName">surName</label>
+                        <input type="text" class="form-control" id="surName" [(ngModel)]="user.surName" name="surName"
+                        required>
+
+                    </div>
+                    <div class="mb-2 col">
+                        <label for="email">email</label>
+                        <input type="text" class="form-control" id="email" [(ngModel)]="user.email" name="email"
+                            required>
+
+                    </div>
+                    <div class="mb-2 col">
+                        <label for="phone">phone</label>
+                        <input type="text" class="form-control" id="phone" [(ngModel)]="user.phone" name="phone"
+                        required>
+
+                    </div>
+                    <div class="mb-2 col">
+                        <label for="password">password</label>
+                        <input type="text" class="form-control" id="password" [(ngModel)]="user.password" name="password"
+                        required>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="imageFile">Profil Fotoğrafı</label>
+                        <p>Mevcut Resmin Adı: {{ user.photoImage }}</p>
+
+                        <img
+          *ngIf="user.photoImage"
+          [src]="getImageUrl(user.photoImage)"
+          alt="Profile Image"
+          style="max-width: 400px; max-height: 400px;"
+        />
+                        <input type="file" class="form-control" id="imageFile" name="imageFile" accept="image/*" (change)="onFileChange($event)">
+                        <img *ngIf="selectedFilePreview" [src]="selectedFilePreview" alt="Seçilen Resim" class="img-preview" [ngStyle]="{'max-width.px': 400, 'max-height.px': 400}">
+                      </div>
+                   
+                    <div class="mb-3 col-12">
+                        <button type="submit" class="btn btn-primary">User'i Güncelle</button>
+                        <a routerLink="/User" class="btn btn-link">Geri Dön</a>
+                    </div>
+                </form>
+            </div>
+            </div>
+        </div>

@@ -4,12 +4,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { AppRoutingModule } from './app-routing.module';  // AppRoutingModule'ı içe aktarın
+import { AppRoutingModule } from './app-routing.module'; 
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AddMeetComponent } from './add-meet/add-meet.component';
+
 
 
 
@@ -19,6 +20,7 @@ import { AddMeetComponent } from './add-meet/add-meet.component';
     LoginComponent,
     RegisterComponent,
     AddMeetComponent,
+    
 
     
   ],
@@ -26,7 +28,8 @@ import { AddMeetComponent } from './add-meet/add-meet.component';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule  
+    AppRoutingModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

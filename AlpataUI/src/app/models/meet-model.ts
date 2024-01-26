@@ -1,5 +1,5 @@
 export class MeetModel{
-    Id?:number;
+    id?:number;
     meetName?:string;
     startDate?:Date;
     finishDate?:Date;

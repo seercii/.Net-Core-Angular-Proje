@@ -13,10 +13,27 @@
     <tbody style="font-size: smaller" *ngFor="let meet of meets">
       <tr>
         <td>{{ meet.meetName }}</td>
-        <td>{{ meet.startDate }}</td>
-        <td>{{ meet.finishDate }}</td>
+       <td> {{ meet.startDate  | date: 'dd/MM/yyyy HH:mm'   }} </td> 
+    
+        <td>{{ meet.finishDate  | date: 'dd/MM/yyyy HH:mm'  }}</td> 
+    
         <td>{{ meet.description }}</td>
         <td>{{ meet.fileUpload }}</td>
+        <td style="white-space: nowrap">
+          <a
+            style="font-size: 0.7rem"
+            routerLink="/update-meet/{{meet.id}}"
+            class="btn btn-sm btn-success me-1"
+            ><i class="bi bi-arrow-clockwise">&nbsp;</i>Güncelle</a
+          >
+          <button
+          (click)="deleteMeet(meet.id)"
+            class="btn btn-danger btn-sm"
+            style="font-size: 0.7rem"
+          >
+            <i class="bi bi-x-circle"></i>&nbsp;Sil
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>  
