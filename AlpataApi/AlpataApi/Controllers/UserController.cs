@@ -1,6 +1,7 @@
 ﻿using AlpataApi.Core.Entities;
 using AlpataApi.Core.Models;
 using AlpataApi.Data.Context;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using ZeniumChargeApi.JwtFeatures;
 
 namespace AlpataApi.Controllers
 {
@@ -17,14 +19,18 @@ namespace AlpataApi.Controllers
     public class UserController : ControllerBase
     {
         private readonly AlpataApiContext _context;
+        private readonly JwtHandler _jwtHandler;
 
-        public UserController(AlpataApiContext context)
+        public UserController(AlpataApiContext context, JwtHandler jwtHandler)
         {
             _context = context;
+            _jwtHandler = jwtHandler;
+
         }
 
-        
+
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<Register>> GetUsers()
         {
             var user= await _context.Registers.ToListAsync();
@@ -32,6 +38,7 @@ namespace AlpataApi.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<Register>> GetUser(int id)
         {
             var user = await _context.Registers.FindAsync(id);
@@ -82,6 +89,7 @@ namespace AlpataApi.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> UpdateUser(int id, [FromForm] RegisterModel register)
         {
             var user = await _context.Registers.FindAsync(id);
@@ -121,6 +129,7 @@ namespace AlpataApi.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteUser(int id)
         {
             var user = await _context.Registers.FindAsync(id);
@@ -143,6 +152,15 @@ namespace AlpataApi.Controllers
             // Kullanıcıyı e-posta ile bul
             var user = await _context.Registers.SingleOrDefaultAsync(u => u.Email == login.Email);
 
+            var authClaims = new List<Claim>//jwt için yeni liste olusturur 
+                    {
+                        new Claim(ClaimTypes.Email, user.Email),//burda kullacının emaili ve JwtRegisteredClaimNames.Jti bulunur
+                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                    };
+            var signingCredentials = _jwtHandler.GetSigningCredentials();//burda jwthandler sınıfı sayesınde signingCredentials nesnesi kullanılır jwtnin imzalanması için
+            var claims = _jwtHandler.GetClaims(user);//kullanıcının taleplerini alır liste şeklinde 
+            var tokenOptions = _jwtHandler.GenerateTokenOptions(signingCredentials, authClaims);//jwt nin ayarlarını içeren JwtSecurityToken olusturulur
+            var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);//olusan jwtsecuritytoken jwtnin string formatına donusur token değişkenine atanır
             if (user == null)
             {
                 return Unauthorized(); // Kullanıcı bulunamadı
@@ -153,12 +171,14 @@ namespace AlpataApi.Controllers
             //ilk passwordhasher örneği olusturuyoruz daha sonra verifyhashedpassword ile giriş yapılan şifreyi database'deki şifreyle aynı mı değilmi ona bakıyoruz
             if (passwordHasher.VerifyHashedPassword(user, user.Password, login.Password) == PasswordVerificationResult.Success)
             {//user zaten giriş yapmaya çalısan kullanıcı user.password databasedeki karmaşık şifre login.passwordda girilen şifre eşleşiyosa ok eşleşmiyosa unauthorized
-                return Ok(new { Message = "Giriş başarılı." });
+                return Ok(new { Message = "Giriş başarılı.", Token = token });
             }
             else
             {
                 return Unauthorized();
             }
         }
+      
+
     }
 }

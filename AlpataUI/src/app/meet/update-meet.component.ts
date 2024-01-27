@@ -13,7 +13,7 @@ import { MeetModel } from '../models/meet-model';
   imports: [NgIf, ReactiveFormsModule, NgClass, RouterLink, CommonModule, FormsModule]
 })
 export class UpdateMeetComponent implements OnInit {
-  meet: MeetModel = {
+  meet: MeetModel = {// meet modelini burada başlangıç değeri olarak tanımladık
     id: 0,
     meetName: '',
     startDate: new Date,
@@ -31,13 +31,13 @@ export class UpdateMeetComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      const id = params['id'];
-      this.loadMeetDetails(id);
+      const id = params['id'];//id değerini alır meetin
+      this.loadMeetDetails(id);//ve başlangıçta o id değerine sahip meetin bilgilerini getirir
     });
   }
 
-  loadMeetDetails(id: number): void {
-    this.accountService.getMeetById(id).subscribe(
+  loadMeetDetails(id: number): void {//meetin id üzerinden accountservice ile meet detaylarını yükler
+    this.accountService.getMeetById(id).subscribe(//getMeetById yi çağırır meet detayları için
       (meets) => {
         this.meet = meets;
       },
@@ -47,9 +47,9 @@ export class UpdateMeetComponent implements OnInit {
     );
   }
   onSubmit() {
-    if (this.meet && this.meet.id) {
-      const formData = new FormData();
-      formData.append('meetName', this.meet.meetName || '');
+    if (this.meet && this.meet.id) {// Eğer meet ve meet id'si varsa devam
+      const formData = new FormData();//burda form verilerini formdata ile ekliyoruz
+      formData.append('meetName', this.meet.meetName || '');//meet içindeki verileri formdataya ekleriz sunucuya göndeririz
       formData.append('startDate', this.meet.startDate!.toString());
 
 
@@ -57,7 +57,7 @@ export class UpdateMeetComponent implements OnInit {
       formData.append('finishDate', this.meet.finishDate!.toString());
       formData.append('description', this.meet.description || '');
       formData.append('uploadFile', this.selectedFile || '');
-      this.accountService.updateMeet(this.meet.id, formData).subscribe(() => {
+      this.accountService.updateMeet(this.meet.id, formData).subscribe(() => {//accountservice üzeirnden updateMeet çağırılır ve meet güncellenir
         this.router.navigate(['/meet']);
       });
     } else {
@@ -65,15 +65,16 @@ export class UpdateMeetComponent implements OnInit {
     }
   }
   onFileChange(event: any) {
+    //seçilen dosyayı event ile alıyoruz
     this.selectedFile = event.target.files[0];
 
-    if (this.selectedFile) {
-      this.selectedFileName = this.selectedFile.name; 
-      const reader = new FileReader();
+    if (this.selectedFile) {//dosya seçilmişse buranın içine giriyoruz
+      this.selectedFileName = this.selectedFile.name; // Seçilen dosyanın adını alarak selectedFileName değişkenine atıyoruz
+      const reader = new FileReader();//nesneyi olusturuyoruz
       reader.onload = (e: any) => {
-        this.selectedFilePreview = e.target.result;
+        this.selectedFilePreview = e.target.result;//dosyanın url sini atıyoruz
       };
-      reader.readAsDataURL(this.selectedFile);
+      reader.readAsDataURL(this.selectedFile);//dosyayı verı urlsine donusturuyoruz
     }
   }
 }

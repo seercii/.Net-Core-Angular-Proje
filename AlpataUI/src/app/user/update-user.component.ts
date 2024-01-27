@@ -33,13 +33,13 @@ export class UpdateUserComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      const id = params['id'];
-      this.loadUserDetails(id);
+      const id = params['id'];//id değerini alır kullaıcının
+      this.loadUserDetails(id);//ve başlangıçta o id değerine sahip kullanıcının bilgilerini getirir
     });
   }
 
-  loadUserDetails(id: number): void {
-    this.accountService.getUserById(id).subscribe(
+  loadUserDetails(id: number): void {//kullanıcının id üzerinden accountservice ile kullanıcı detaylarını yükler
+    this.accountService.getUserById(id).subscribe(//getUserById yi çağırır kullanıcı detayları için
       (users) => {
         this.user = users;
       },
@@ -50,9 +50,9 @@ export class UpdateUserComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.user && this.user.id) {
-      const formData = new FormData();
-      formData.append('Name', this.user.name || '');
+    if (this.user && this.user.id) {// Eğer kullanıcı ve kullanıcı ID'si varsa devam
+      const formData = new FormData();//burda form verilerini formdata ile ekliyoruz
+      formData.append('Name', this.user.name || '');//registermodel içindeki verileri formdataya ekleriz sunucuya göndeririz
       formData.append('Email', this.user.email || '');
       formData.append('Password', this.user.password || '');
       formData.append('Phone', this.user.phone || '');
@@ -60,7 +60,7 @@ export class UpdateUserComponent implements OnInit {
 
       formData.append('photoImageFile', this.selectedFile || '');
 
-      this.accountService.updateUser(this.user.id, formData).subscribe(() => {
+      this.accountService.updateUser(this.user.id, formData).subscribe(() => {//accountservice üzeirnden updateuser çağırılır ve kullanıcı güncellenir
         this.router.navigate(['/user']);
       });
     } else {
@@ -69,14 +69,15 @@ export class UpdateUserComponent implements OnInit {
   }
 
   onFileChange(event: any) {
+    //seçilen dosyayı event ile alıyoruz
     this.selectedFile = event.target.files[0];
 
-    if (this.selectedFile) {
-      const reader = new FileReader();
+    if (this.selectedFile) {//dosya seçilmişse buranın içine giriyoruz
+      const reader = new FileReader();//bu nesneyi olusturuyoruz
       reader.onload = (e: any) => {
-        this.selectedFilePreview = e.target.result;
+        this.selectedFilePreview = e.target.result;//dosyanın url sini atıyoruz
       };
-      reader.readAsDataURL(this.selectedFile);
+      reader.readAsDataURL(this.selectedFile);//dosyayı verı urlsine donusturuyoruz
     }
   }
   getImageUrl(imagePath: string | undefined): string {

@@ -10,14 +10,20 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./add-meet.component.css']
 })
 export class AddMeetComponent {
-  meetModel: MeetModel = { meetName: "", description: "", startDate: new Date(), finishDate: new Date(), fileUpload: "" };
+  meetModel: MeetModel = { // meet modelini burada başlangıç değeri olarak tanımladık
+    meetName: "",
+    description: "",
+    startDate: new Date(),
+    finishDate: new Date(),
+    fileUpload: ""
+  };
   selectedFile: File | null = null;
   selectedFilePreview: string | null = null; // dosyanın önizlemesinin veri URL'si
   constructor(private accountService: AccountService, private router: Router, private datePipe: DatePipe) { }
 
   create() {
-    const formData = new FormData();
-    formData.append('meetName', this.meetModel.meetName || '');
+    const formData = new FormData();//burda form verilerini formdata ile ekliyoruz
+    formData.append('meetName', this.meetModel.meetName || '');//meet içindeki verileri formdataya ekleriz sunucuya göndeririz
     formData.append('description', this.meetModel.description || '');
     formData.append('startDate', this.meetModel.startDate!.toString());
     formData.append('finishDate', this.meetModel.finishDate!.toString());
@@ -37,14 +43,15 @@ export class AddMeetComponent {
   }
 
   onFileChange(event: any) {
+    //seçilen dosyayı event ile alıyoruz
     this.selectedFile = event.target.files[0];
 
-    if (this.selectedFile) {
-      const reader = new FileReader();
+    if (this.selectedFile) {//dosya seçilmişse buranın içine giriyoruz
+      const reader = new FileReader();//nesneyi olusturuyoruz
       reader.onload = (e: any) => {
-        this.selectedFilePreview = e.target.result;
+        this.selectedFilePreview = e.target.result;//dosyanın url sini atıyoruz
       };
-      reader.readAsDataURL(this.selectedFile);
+      reader.readAsDataURL(this.selectedFile);//dosyayı verı urlsine donusturuyoruz
     }
   }
 }

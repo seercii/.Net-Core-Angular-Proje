@@ -1,6 +1,7 @@
 ﻿using AlpataApi.Core.Entities;
 using AlpataApi.Core.Models;
 using AlpataApi.Data.Context;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using Microsoft.Win32;
 namespace AlpataApi.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class MeetController : ControllerBase
     {
@@ -40,20 +42,22 @@ namespace AlpataApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Meet>> Createmeet([FromForm] MeetModel meetModel)
+        [Authorize]
+        public async Task<ActionResult<Meet>> Createmeet([FromForm] MeetModel meetModel)//fromform kullanmamızınsebebi 415 desteklenmeyen medya türü hatası dönmesi
         {
-            if (meetModel.UploadFile != null)
+            //dosya ekleme işlemi 
+            if (meetModel.UploadFile != null)//yüklediği dosya null mu değil mi
             {
-                string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "documentation");
-                string uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(meetModel.UploadFile.FileName);
-                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "documentation");//dosyayı nereye yükleyeceğimizi seçeriz
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + Path.GetFileName(meetModel.UploadFile.FileName);//burada yüklenen dosyaya karışık isim verir
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);//burda tam yolu belirliyoruz dosyanın klasor ile foto 
 
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                using (var fileStream = new FileStream(filePath, FileMode.Create))//buda dosya yoksa olusturuyo 
                 {
-                    await meetModel.UploadFile.CopyToAsync(fileStream);
+                    await meetModel.UploadFile.CopyToAsync(fileStream);//dosyayı fileStream üzerine asenkron olarak kopyalar
                 }
 
-                meetModel.FileUpload = uniqueFileName;
+                meetModel.FileUpload = uniqueFileName; //veritabanında adı saklar
             }
 
 

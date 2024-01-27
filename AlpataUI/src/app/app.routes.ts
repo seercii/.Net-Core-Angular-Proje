@@ -9,16 +9,16 @@ import { AddMeetComponent } from './add-meet/add-meet.component';
 
 
 export const routes: Routes = [
-    {path:'', component:AppComponent},
-    {path: 'login', component:LoginComponent}  ,
-    {path:'register',component:RegisterComponent},
-    {path:'user',component:UserComponent},
-    {path:'meet',component:MeetComponent},
-    {path:'addmeet',component:AddMeetComponent},
+    { path: '', component: LoginComponent },
+    { path: 'login', component: LoginComponent },
+    { path: 'register', component: RegisterComponent },
+    { path: 'user', component: UserComponent },
+    { path: 'meet', component: MeetComponent },
+    { path: 'addmeet', component: AddMeetComponent },
 
 
-//burda yolları belirttik
+    //burda yolları belirttik
 
 
-  
+
 ];

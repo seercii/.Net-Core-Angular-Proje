@@ -11,16 +11,17 @@ import { UpdateMeetComponent } from './meet/update-meet.component';
 
 
 const routes: Routes = [
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'user', component: UserComponent },
   { path: 'meet', component: MeetComponent },
   { path: 'addmeet', component: AddMeetComponent },
   { path: 'update-user/:id', component: UpdateUserComponent },
-  {path:'update-meet/:id',component:UpdateMeetComponent}
+  { path: 'update-meet/:id', component: UpdateMeetComponent }
 
 
-//burda route işlemlerini yaptık
+  //burda route işlemlerini yaptık
 
 ];
 

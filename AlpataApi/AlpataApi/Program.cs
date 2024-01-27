@@ -1,15 +1,46 @@
 using AlpataApi.Core.Entities;
+using AlpataApi.Core.Models;
 using AlpataApi.Data.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using ZeniumChargeApi.JwtFeatures;
 
 var builder = WebApplication.CreateBuilder(args);
 
 //db contexti ekledik
 builder.Services.AddScoped<AlpataApiContext>();
+
+
+//jwt tokennn
+builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JWTSettings"));//jwtsettings özelliklerini kullanmak ýcýn yazdýk
+
+builder.Services.AddAuthentication(opt =>//burda kimlik dogrulama iþlemleri var 
+{
+    opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    opt.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>//jwt ile ilgili detaylar var
+{
+    var jwtSettings = builder.Services.BuildServiceProvider().GetService<IOptions<JwtSettings>>().Value;
+
+    options.TokenValidationParameters = new TokenValidationParameters//jwt nin dogruluguna bakýlýr
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ClockSkew = TimeSpan.Zero,
+        ValidIssuer = jwtSettings.ValidIssuer,
+        ValidAudience = jwtSettings.ValidAudience,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.SecurityKey))
+    };
+});
+
+builder.Services.AddScoped<JwtHandler>();//jwthandler sýnfýýnýn uygulama boyunca býr kere olusturulup paylasýlmasýný saglar jwt olusturma ve iþleme iþlemi
 
 
 
@@ -40,6 +71,7 @@ app.UseCors(options =>
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 
 app.UseAuthorization();
 

@@ -5,18 +5,23 @@
 
   <nav class="mb-4">
     <ul class="nav">
-      <li class="nav-item"><button class="nav-link" routerLink="">Home</button></li>
-      <li class="nav-item"><button class="nav-link" routerLink="/login">Login</button></li>
-      <li class="nav-item"><button class="nav-link" routerLink="/register">Register</button></li>
+      <!-- Giriş yapılmışsa ve isLoggedIn true ise çıkış bağlantısını göster -->
+      <li class="nav-item" *ngIf="isLoggedIn()"><button class="nav-link" (click)="logout()">Logout</button></li>
+
+      <!-- Giriş yapılmamışsa veya isLoggedIn false ise giriş bağlantısını göster -->
+      <li class="nav-item" *ngIf="!isLoggedIn()"><button class="nav-link" routerLink="/login">Login</button></li>
+
+      <!-- Giriş yapılmamışsa veya isLoggedIn false ise register bağlantısını göster -->
+      <li class="nav-item" *ngIf="!isLoggedIn()"><button class="nav-link" routerLink="/register">Register</button></li>
+
       <li class="nav-item"><button class="nav-link" routerLink="/user">User</button></li>
       <li class="nav-item"><button class="nav-link" routerLink="/meet">Meet</button></li>
       <li class="nav-item"><button class="nav-link" routerLink="/addmeet">Create Meet</button></li>
     </ul>
   </nav>
+
   <!--router-outlet yaptık ve ana sayfada her zaman bu linkler gelecek  -->
 
-  <section class="main-content">
-    <router-outlet></router-outlet>
-  </section>
+  <router-outlet></router-outlet>
 
 </div>
